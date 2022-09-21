@@ -30,18 +30,38 @@ visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabell
 
 Bank bancaIntesa = new Bank("Banca Intesa");
 
-
+// FAKE DB CLIENTS
 bancaIntesa.AddNewClient("Giovanni", "Rossi", "GVNNRSS23M456G", 1800);
 bancaIntesa.AddNewClient("Giovanni", "Mucci", "GVNNMCC23M456G", 1600);
 
 bancaIntesa.AddNewClient("Giovanni", "Rossi", "GRNNRSS23M456G", 1800);
 bancaIntesa.AddNewClient("Giovanni", "Mucci", "GYNNMCC23M456G", 1600);
 
+// FAKE DB:
+DateTime startDate = DateTime.Now;
+Client clientRandom = bancaIntesa.SearchClient("GYNNMCC23M456G");
+
+// Aggiunta/modifica/rimozione clienti
+bancaIntesa.AddNewLoanToClient(10000, 200, startDate,  clientRandom);
+bancaIntesa.AddNewLoanToClient(40000, 1000, startDate,  clientRandom);
 
 bancaIntesa.RemoveClient(2);
 bancaIntesa.modifyClient(1, "salary", "1234566");
+
+// Stampa Info tutti i clienti
 bancaIntesa.GetAllClientsAndPrint();
 
+// Stampa Info Tutti i Prestiti
+bancaIntesa.GetAllLoansAndPrint();
+
+// Ricerca Prestiti Concessi
+List<Loan> listLoan = bancaIntesa.GetLoanOfAClient("GYNNMCC23M456G");
+
+
+// La ricerca è effettuata in base all'ULTIMA RATA DA PAGARE non alla somma delle mensilità
+// (un cliente puo aprire piu prestiti ma la somma mensile da versare va ad aumentare in base alle rate mensili dei singoli prestiti)
+// !!! QUINDI NON VENGONO SOMMATE LE MENSILITA' DELLE RATE
+Console.WriteLine("mesi rimanenti da pagare: " + bancaIntesa.TimeLeftClient("GYNNMCC23M456G"));
 
 
 

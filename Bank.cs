@@ -14,8 +14,6 @@ public class Bank
         this.loans = new List<Loan>();
     }
 
-
-
     // Aggiungere Cliente
     public void AddNewClient(string firstName, string lastName, string CV, int salary)
     {
@@ -73,9 +71,9 @@ public class Bank
     {
         foreach(Client client in this.clients)
         {
-            if(client.FirstName.Contains(query) || 
-                client.LastName.Contains(query) || 
-                client.CV.Contains(query))
+            if(client.FirstName == query || 
+                client.LastName == query || 
+                client.CV == query)
             {
                 return client;
             }
@@ -84,12 +82,28 @@ public class Bank
         return clients[1]; // DA FIXARE IN CASO DI RISULTATO NN TROVATO
         
     }
+
+    // Aggiungere Prestito
+    public void AddNewLoanToClient( int amount, int singleRate, DateTime startDate, Client client)
+    {
+        Loan loan = new Loan(amount, singleRate, startDate, client);
+        this.loans.Add(loan);
+    }
     
-    
-    
-    
-    
-    
+    //Lista Prestiti collegati ad un cliente
+    public List<Loan> GetLoanOfAClient(string CV)
+    {
+        List<Loan> loansFiltered = new List<Loan>();
+       foreach(Loan loan in this.loans)
+        {
+            if (loan.client.CV == CV )
+            {
+                loansFiltered.Add(loan);
+            }
+        }
+
+        return loansFiltered;
+    }
     
     // Stampare Clienti (DA FIXARE: Provvisoria per vedere risultati a schermo)
     public void GetAllClientsAndPrint()
@@ -97,8 +111,38 @@ public class Bank
 
         foreach (Client client in clients)
         {
-            Console.WriteLine(client.id + " " + client.FirstName + " " + client.LastName + " " + client.Salary);
+            client.Print();
         }
+    }
+
+    public void GetAllLoansAndPrint()
+    {
+        foreach(Loan loan in this.loans)
+        {
+            loan.Print();            
+        }
+    }
+    // La ricerca è effettuata in base all'ultima rata da pagere non alla somma delle mensilità
+    public int TimeLeftClient(string CV)
+    {
+        List<Loan> loansClient = GetLoanOfAClient(CV);
+        List<DateTime> endDates = new List<DateTime>();
+        foreach(Loan loan in loansClient)
+        {
+            endDates.Add(loan.endDate);
+        }
+         DateTime max = endDates.Max();
+
+        foreach (Loan loan in loansClient)
+        {
+            if(loan.endDate == max)
+            {
+                return loan.TimeLeft();
+            }
+        }
+
+        return 0;
+
     }
 
 }
