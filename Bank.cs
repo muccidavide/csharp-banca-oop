@@ -4,8 +4,8 @@ public class Bank
     string name;
     int idCounter;
 
-    List<Client> clients;
-    List<Loan> loans;
+    public List<Client> clients;
+    public List<Loan> loans;
 
     public Bank(string name)
     {
