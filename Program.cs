@@ -29,13 +29,21 @@ visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabell
  */
 
 Bank bancaIntesa = new Bank("Banca Intesa");
-bancaIntesa.GetAllClients();
+
+
 bancaIntesa.AddNewClient("Giovanni", "Rossi", "GVNNRSS23M456G", 1800);
 bancaIntesa.AddNewClient("Giovanni", "Mucci", "GVNNMCC23M456G", 1600);
 
-List<Client> bankClients = bancaIntesa.GetAllClients();
-foreach (Client client in bankClients)
-{
-    Console.WriteLine(client.Firstname);
-}
+bancaIntesa.AddNewClient("Giovanni", "Rossi", "GRNNRSS23M456G", 1800);
+bancaIntesa.AddNewClient("Giovanni", "Mucci", "GYNNMCC23M456G", 1600);
+
+
+bancaIntesa.RemoveClient(2);
+bancaIntesa.modifyClient(1, "salary", "1234566");
+bancaIntesa.GetAllClientsAndPrint();
+
+
+
+
+
 

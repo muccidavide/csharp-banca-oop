@@ -1,7 +1,9 @@
 ﻿
 public class Client
 {
-    public string Firstname { get; set; }
+    static int idCounter = 1;
+    public int id { get; protected set; }
+    public string FirstName { get; set; }
     public string LastName { get; set; }
     public string CV { get; set; }
     public int Salary { get; set; }
@@ -10,6 +12,7 @@ public class Client
 
     public Client(string firstname, string lastName, string cV, int salary)
     {
+        this.id = idCounter++;
         this.Firstname = firstname;
         this.LastName = lastName;
         CV = cV;
