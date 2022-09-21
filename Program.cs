@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  Sviluppare un’applicazione orientata agli oggetti per gestire i prestiti che una banca concede ai propri clienti.
 La banca è caratterizzata da
 - un nome
@@ -27,28 +28,14 @@ Bonus:
 visualizzare per ogni cliente, la situazione dei suoi prestiti in formato tabellare.
  */
 
-public class Bank
+Bank bancaIntesa = new Bank("Banca Intesa");
+bancaIntesa.GetAllClients();
+bancaIntesa.AddNewClient("Giovanni", "Rossi", "GVNNRSS23M456G", 1800);
+bancaIntesa.AddNewClient("Giovanni", "Mucci", "GVNNMCC23M456G", 1600);
+
+List<Client> bankClients = bancaIntesa.GetAllClients();
+foreach (Client client in bankClients)
 {
-    string name;
-
-    List<Client> clients;
-    List<Loan> loans;
-
+    Console.WriteLine(client.Firstname);
 }
 
-public class Client
-{
-    string firstname;
-    string lastName;
-    string CV;
-    int salary;
-}
-
-public class Loan
-{
-    int Id;
-    int amount;
-    int singleRate;
-    string startDate;
-    string endDate;
-}
